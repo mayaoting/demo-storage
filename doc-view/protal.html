@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  body {
+    margin: 0px;
+  }
+  #header-wrap {
+    height: 300px;
+    width: 100%;
+  }
+  .content{
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .left-menu {
+    position: absolute;
+    top: 0px;
+    width: 242px;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+  }
+  .left-menu.fixed {
+    position: fixed;
+    top: 40px;
+  }
+  .left-menu li {
+    height: 40px;
+    width: 100%;
+    line-height: 40px;
+    /* background: darkgray; */
+    margin-bottom: 30px;
+  }
+  .left-menu li:active, .active{
+    background: darkseagreen;
+    border-left: 4px solid blue;
+  }
+  .left-menu li a {
+    padding-left: 30px;
+    display:block;
+  }
+  .right-content {
+    margin-left: 300px;
+    background: #f5f5f5;
+  }
+  a {
+    color: #333333;
+    text-decoration: none;
+  }
+</style>
+<body>
+  <div id="header-wrap">
+    
+  </div>
+  <div class="content">
+    <ul class="left-menu">
+      <li><a href="#div1" class="active">menu1</a></li>
+      <li><a href="#div2">menu2</a></li>
+      <li><a href="#div3">menu3</a></li>
+      <li><a href="#div4">menu4</a></li>
+    </ul>
+    <div class="right-content">
+      <div id="div1" style="height: 600px;background: darkcyan;">
+
+      </div>
+      <div id="div2" style="height: 800px;background: rgb(186, 219, 219);">
+
+      </div>
+      <div id="div3" style="height: 800px;background: rgb(118, 226, 17);">
+
+      </div>
+      <div id="div4" style="height: 800px;background: rgb(222, 226, 17);">
+
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="./protal.js"></script>
+</body>
+</html>

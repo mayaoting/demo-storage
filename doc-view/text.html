@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!-- <meta name="author" content="http://www.softwhy.com/" /> -->
+<title>蚂蚁部落</title>
+<style>
+html, body, div, ul, li {
+  margin: 0;
+  padding: 0;
+}
+ul li {
+  list-style: none;
+}
+#sideBar {
+  width: 50px;
+  height: 500px;
+  position: fixed;
+  left: 200px;
+  top: 200px;
+}
+#sideBar ul li {
+  width: 50px;
+  height: 50px;
+  background: skyblue;
+  border: 1px dashed #eee;
+  color: #fff;
+  text-align: center;
+  line-height: 50px;
+  cursor: pointer;
+}
+#sideBar ul li.cur {
+  background: orange;
+  color: #37c1e3;
+  font-weight: bold;
+}
+.item {
+  width: 70%;
+  height: 800px;
+  background: #cccccc;
+  margin: 0 auto;
+  font-size: 150px;
+  color: #fff;
+  text-align: center;
+  border-bottom: 1px solid #37c1e3;
+  line-height: 800px;
+}
+</style>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<script>
+$(function() {
+  function SideBar(opt) {
+  
+    var self = this;
+    this.opt = {
+      sidebar: '',
+      items: ''
+    };
+    this.opt = opt;
+    this.click_F = false;
+    this.proboxTop = [];
+    this.opt.sidebar.find('li').eq(0).addClass('cur');
+    $.each(self.opt.items, function(index) {
+      self.proboxTop[index] = self.opt.items.eq(index).offset().top;
+    });
+    this.init();
+  }
+  
+  SideBar.prototype = {
+    init: function() {
+      this.clickTo();
+      this.scrollTo();
+    },
+    clickTo: function() {
+      var self = this;
+  
+      this.opt.sidebar.find('li').click(function() {
+        self.click_F = true;
+        var index = $(this).index();
+        $('html,body').finish().animate({
+          scrollTop: self.proboxTop[index]
+        }, function() {
+          self.click_F = false;
+        });
+        $(this).addClass('cur').siblings().removeClass('cur');
+      });
+    },
+    scrollTo: function() {
+      var self = this;
+      this.change($(window).scrollTop());
+      $(window).on('scroll', function() {
+        if (self.click_F) {
+          return;
+        }
+        self.change($(this).scrollTop());
+      });
+    },
+    change: function(scrollTop) {
+      var self = this;
+      var el = self.opt.sidebar;
+      for (var index = 0; index < self.proboxTop.length - 1; index++) {
+        if (self.proboxTop[index] <= scrollTop && self.proboxTop[index + 1] > scrollTop) {
+          el.find('li').eq(index).addClass('cur').siblings().removeClass('cur');
+        }
+      }
+      if (self.proboxTop[self.proboxTop.length - 1] <= scrollTop) {
+        el.find('li').eq(self.proboxTop.length - 1).addClass('cur').siblings().removeClass('cur');
+      }
+    }
+  }
+  
+  var scroll = new SideBar({
+    sidebar: $('#sideBar'),
+    items: $('.item')
+  });
+});    
+</script>
+</head>
+<body>
+  <div id="sideBar">
+    <ul>
+      <li>one</li>
+      <li>two</li>
+      <li>three</li>
+      <li>four</li>
+      <li>fiv</li>
+    </ul>
+  </div>
+  <div class="content">
+    <div style="background:pink" class="item">蚂蚁部落一</div>
+    <div style="background:deepskyblue" class="item">蚂蚁部落二</div>
+    <div style="background:greenyellow" class="item">蚂蚁部落三</div>
+    <div style="background:green" class="item">蚂蚁部落四</div>
+    <div style="background:orange" class="item">蚂蚁部落五</div>
+  </div>
+  <div style="height:1000px;"></div>
+</body>
+</html>

@@ -1,9 +1,10 @@
+// 2020/04/24 做题记录
 /**
- *1、一下哪个会输出 ‘hello world’ 
+ *1、一下哪个会输出 ‘hello world’
  */
 const myMap = new Map()
 const myFunc = () => 'greeting'
-myMap.set(myFunc,'hello world!')  
+myMap.set(myFunc,'hello world!')
 console.log(myMap.get('greeting')) // undefined
 console.log(myMap.get(myFunc))   // hello world
 console.log(myMap.get(() => 'greeting'))  //undefined
@@ -15,7 +16,7 @@ console.log(myMap.get(() => 'greeting'))  //undefined
  * myMap 现在就是{()=>'greeting'=>'hello world!}.
  * 1是错误的，因为键名不是'greeting' 而是()=>'greeting',3是错误的因为我们给get方法传递了一个新的函数，
  * 对象受引用影响。函数也是对象，因此两个函数严格上不等价，尽管他们相同，但是有两个不同的内存引用地址。
- * 
+ *
  */
 
  /*
@@ -30,7 +31,7 @@ console.log(myMap.get(() => 'greeting'))  //undefined
  }
 
  Object.freeze(person)
- // 选项  A: person.name = 'Evan Bacon' B: delete person.address 
+ // 选项  A: person.name = 'Evan Bacon' B: delete person.address
  //      C:person.address.street='101 Main st'  D:person.pet={name:'Mara'}
 
  /**
@@ -77,7 +78,7 @@ function sayHi(name) {
 
 console.log(sayHi())  // Hi there undefined
 /**
- * 解析： 默认情况下，如果不给函数传参，参数的值将是 undefined 
+ * 解析： 默认情况下，如果不给函数传参，参数的值将是 undefined
  * 在ES6中我们可以使用默认参数覆盖此默认的undefined 例如
  * function sayHi(name:'lydia'){...}
 */
@@ -89,9 +90,9 @@ console.log(sayHi())  // Hi there undefined
 function nums(a,b){
   if (a>b)
   console.log('a is bigger')
-  else 
+  else
   console.log('b is bigger')
-  return 
+  return
   a+b
 }
 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <button id='button'>点击变色</button>
+  </div>
+  <script>
+    function Button(id) {
+      this.element = document.querySelector('#' + id);
+      this.bindEvent();
+    }
+
+    Button.prototype.bindEvent = function() {
+      // this.element.addEventListener('click',this.setBgColor.bind(this),false);  // es5
+      this.element.addEventListener('click', event => this.setBgColor(event),false)  // es6
+    };
+    Button.prototype.setBgColor = function() {
+      console.log(this);
+      this.element.style.backgroundColor = '#1abc9c';
+    };
+    // 0507.html:22 Uncaught TypeError: Cannot read property 'style' of undefined
+    // at HTMLButtonElement.Button.setBgColor (0507.html:22)
+    
+    // 这是因为在使用 addEventListener() 为一个元素注册事件的时候，事件函数里的this值是
+    // 该元素的引用  在 setBgColor中这个this 是指向按钮元素那么 this.element就是undefined 
+    // 我们希望 setBgColor 中的this是指向实例对象，这样就可以调用其他的函数
+    // 当使用 .bind(this)的时候是指向 Button 实例对象的。
+    var button = new Button('button');
+  </script>
+</body>
+</html>

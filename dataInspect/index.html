@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!-- import CSS -->
+  <meta http-equiv="Access-Control-Allow-Origin" content="*">
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div id="app">
+    <div class="wrapper">
+      <div class="wrapper-header">
+        <span class="wrapper-header-title">数据规约检查：以下是不符合数据规约的表</span> 
+      </div>
+      <hr>
+      <el-table
+        class="data-table"
+        :data="tableData"
+        style="width: 100%">
+        <el-table-column
+          prop="schemaName"
+          label="数据库"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="tableName"
+          label="表"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="checkResult"
+          label="数据规约检查结果">
+        </el-table-column>
+      </el-table>
+      <el-pagination
+        class="table-pagination"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-sizes="[10, 20, 30, 40]"
+        :page-size="10"
+        layout="total, prev, pager, next,sizes,  jumper"
+        :total="40">
+    </el-pagination>
+    </div>
+  </div>
+</body>
+  <!-- import Vue before Element -->
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- import JavaScript -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: function() {
+        return { 
+          visible: false,
+          currentPage:1,
+          tableData: []
+       }
+      },
+      mounted() {
+        this.fetch();
+      },
+      methods:{
+        handleSizeChange(val) {
+          console.log(`每页 ${val} 条`);
+        },
+        handleCurrentChange(val) {
+          console.log(`当前页: ${val}`);
+        },
+        fetch(currentPage = 1){
+          const params = {
+          current:currentPage,
+          params:{
+            schemas:'DB_SHOPDOG',
+          },
+          size:10,
+        }
+        axios.defaults.withCredentials = true;
+        axios
+          .post('http://dma-data-governance-sit.cloud.bz/md/dbcheck',params)
+          .then(res => {
+            console.log(res);
+            this.tableData = res.data.data.records;
+          })
+          .catch(function (error) { // 请求失败处理
+            console.log(error);
+          });
+        }
+      }
+    })
+  </script>
+</html>

@@ -1,0 +1,25 @@
+body,html{
+  margin: 0;
+  padding: 0;
+}
+.wrapper {
+  position: relative;
+  padding: 2px 24px;
+}
+.wrapper-header{
+  height: 60px;
+  line-height: 60px;
+}
+.wrapper-header-title{
+  font-weight: 600;
+}
+hr {
+  margin: 0;
+}
+.data-table {
+  margin-top: 16px;
+}
+.table-pagination{
+  float: right;
+  padding-top: 20px;
+}
